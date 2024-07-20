@@ -91,7 +91,6 @@ The API is documented using Swagger (OpenAPI). You can view the documentation by
 To run the tests, use the following command:
 
 ```bash
-bashCopy code
 php artisan test
 
 ```
@@ -108,7 +107,6 @@ The tests include functionality checks for:
 ### Get All Posts
 
 ```sql
-sqlCopy code
 curl -X GET "http://localhost:8000/api/posts" -H "Authorization: Bearer <your_jwt_token>" -H "Accept: application/json"
 
 ```
@@ -116,7 +114,6 @@ curl -X GET "http://localhost:8000/api/posts" -H "Authorization: Bearer <your_jw
 ### Create a New Post
 
 ```json
-jsonCopy code
 curl -X POST "http://localhost:8000/api/posts" \
      -H "Authorization: Bearer <your_jwt_token>" \
      -H "Content-Type: application/json" \
@@ -127,7 +124,6 @@ curl -X POST "http://localhost:8000/api/posts" \
 ### Update a Post
 
 ```json
-jsonCopy code
 curl -X PUT "http://localhost:8000/api/posts/{id}" \
      -H "Authorization: Bearer <your_jwt_token>" \
      -H "Content-Type: application/json" \
@@ -138,7 +134,6 @@ curl -X PUT "http://localhost:8000/api/posts/{id}" \
 ### Delete a Post
 
 ```sql
-sqlCopy code
 curl -X DELETE "http://localhost:8000/api/posts/{id}" \
      -H "Authorization: Bearer <your_jwt_token>"
 
