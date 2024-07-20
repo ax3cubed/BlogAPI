@@ -75,6 +75,8 @@ Replace `<your_jwt_token>` with the actual JWT token you received after logging 
 - `GET /api/posts/{id}` - Show a single post
 - `PUT /api/posts/{id}` - Update a post
 - `DELETE /api/posts/{id}` - Delete a post
+- `POST /api/register` - Registers a user
+- `POST /api/login` - Logs on a registered user
 
 ### Scheduled Posts
 
@@ -107,7 +109,7 @@ The tests include functionality checks for:
 ### Get All Posts
 
 ```sql
-curl -X GET "http://localhost:8000/api/posts" -H "Authorization: Bearer <your_jwt_token>" -H "Accept: application/json"
+curl -X GET "http://localhost:8000/api/posts"  -H "Accept: application/json"
 
 ```
 
