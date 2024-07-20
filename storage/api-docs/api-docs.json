@@ -36,6 +36,11 @@
                                         "description": "User password",
                                         "type": "string",
                                         "format": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "description": " password confirmation",
+                                        "type": "string",
+                                        "format": "password confirmation"
                                     }
                                 },
                                 "type": "object"
@@ -50,8 +55,12 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "token": {
+                                        "access_token": {
                                             "description": "JWT token",
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "description": " token type",
                                             "type": "string"
                                         }
                                     },
@@ -115,8 +124,12 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "token": {
+                                        "access_token": {
                                             "description": "JWT token",
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "description": " token type",
                                             "type": "string"
                                         }
                                     },

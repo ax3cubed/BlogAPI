@@ -23,14 +23,16 @@ class AuthController extends Controller
      *         @OA\JsonContent(
      *             @OA\Property(property="name", type="string", description="User name"),
      *             @OA\Property(property="email", type="string", format="email", description="User email"),
-     *             @OA\Property(property="password", type="string", format="password", description="User password")
+     *             @OA\Property(property="password", type="string", format="password", description="User password"),
+     *             @OA\Property(property="password_confirmation", type="string", format="password confirmation", description=" password confirmation")
      *         )
      *     ),
      *     @OA\Response(
      *         response=201,
      *         description="Successful registration",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="token", type="string", description="JWT token")
+     *          @OA\JsonContent(
+     *             @OA\Property(property="access_token", type="string", description="JWT token"),
+     *             @OA\Property(property="token_type", type="string", description=" token type")
      *         )
      *     ),
      *     @OA\Response(
@@ -56,7 +58,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return response()->json(['message' => 'User registered successfully']);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
     }
 
         /**
@@ -77,7 +81,8 @@ class AuthController extends Controller
      *         response=200,
      *         description="Successful login",
      *         @OA\JsonContent(
-     *             @OA\Property(property="token", type="string", description="JWT token")
+     *             @OA\Property(property="access_token", type="string", description="JWT token"),
+     *             @OA\Property(property="token_type", type="string", description=" token type")
      *         )
      *     ),
      *     @OA\Response(
