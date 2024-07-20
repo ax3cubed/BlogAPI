@@ -33,7 +33,6 @@ class PublishScheduledPosts extends Command
                      ->get();
 
         foreach ($posts as $post) {
-            $post->published = true; // Assuming you have a `published` column to track post publication status
             $post->save();
         }
 

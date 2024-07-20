@@ -7,8 +7,41 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
+
 class AuthController extends Controller
 {
+
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     operationId="registerUser",
+     *     tags={"Auth"},
+     *     summary="Register user",
+     *     description="Registers a new user and returns a JWT token",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", description="User name"),
+     *             @OA\Property(property="email", type="string", format="email", description="User email"),
+     *             @OA\Property(property="password", type="string", format="password", description="User password")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful registration",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string", description="JWT token")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
     public function register(Request $request)
     {
         $request->validate([
@@ -26,6 +59,36 @@ class AuthController extends Controller
         return response()->json(['message' => 'User registered successfully']);
     }
 
+        /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     operationId="loginUser",
+     *     tags={"Auth"},
+     *     summary="Login user",
+     *     description="Authenticates a user and returns a JWT token",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="email", type="string", format="email", description="User email"),
+     *             @OA\Property(property="password", type="string", format="password", description="User password")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful login",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string", description="JWT token")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         $request->validate([

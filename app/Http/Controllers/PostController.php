@@ -197,4 +197,52 @@ class PostController extends Controller
         $post->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+      /**
+     * @OA\Post(
+     *     path="/api/posts/{post}/schedule",
+     *     operationId="schedulePost",
+     *     tags={"Posts"},
+     *     summary="Schedule a post for future publication",
+     *     description="Schedules a post to be published in the future",
+     *     @OA\Parameter(
+     *         name="post",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="publish_at", type="string", format="date-time", description="The publish date of the post")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/Post")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
+    public function schedule(Request $request, string $id)
+    {
+        $post = Post::findOrFail($id);
+
+        $request->validate([
+            'publish_at' => 'required|date|after:now',
+        ]);
+
+        $post->publish_at = $request->input('publish_at');
+        $post->save();
+
+        return new PostResource($post);
+    }
+
 }
